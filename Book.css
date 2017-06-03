@@ -1,0 +1,8 @@
+.container .row{
+    text-align: center;
+    text-decoration: none
+}
+
+.caret {
+    transition: all 2s ease;
+}
