@@ -24,7 +24,7 @@ public class UserController {
 
 	@InitBinder
 	public void init(WebDataBinder binder){
-		binder.registerCustomEditor(Task.class, new TaskEditor(taskService));
+		binder.registerCustomEditor(Task.class, new TaskEditor());
 	}
 
 	@GetMapping("/registration")
@@ -47,9 +47,9 @@ public class UserController {
 					e.getMessage().equals(UserValidationMessages.USERNAME_ALREADY_EXISTS)){
 				model.addAttribute("UserNameException", e.getMessage());
 			}
-			return "views-user-registration";
+			return "user/registration";
 		}
-		return "redirect:/";
+		return "redirect:/registration";
 	}
 
 	@GetMapping("/signup")
@@ -69,7 +69,7 @@ public class UserController {
 	@RequestMapping(value = "/updateUser/{id}", method = RequestMethod.GET)
 	public String getUser(@PathVariable int id, Model model) {
 		model.addAttribute("userAttribute", userService.findOne(id));
-		return "views-user-updateUser";
+		return "user/updateUser";
 	}
 
 	@RequestMapping(value = "/updateUser/{id}", method = RequestMethod.POST)
@@ -77,7 +77,7 @@ public class UserController {
 		user.setId(id);
 		userService.update(user);
 		model.addAttribute("users", userService.findAll());
-		return "views-user-registration";
+		return "user/registration";
 	}
 
 

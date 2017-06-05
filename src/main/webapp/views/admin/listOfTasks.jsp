@@ -28,11 +28,9 @@
                 <tbody>
                 <tr>
                     <c:forEach var="user" items="${users}">
-
                         <td>${user.name}</td>
-
                     </c:forEach>
-                    <td>${task.localDateTime}</td>
+                    <%--<td>${task.user.name}</td>--%>
                     <td>${task.titleOfTask}</td>
                     <td>${task.descriptionOfTask}</td>
                     <td><a href="/deleteTask/${task.id}">Delete</a></td>
@@ -44,4 +42,5 @@
         </table>
     </ol>
 </table>
+<link href="/css/bootstrap.css" rel="stylesheet">
 

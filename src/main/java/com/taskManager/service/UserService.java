@@ -1,5 +1,6 @@
 package com.taskManager.service;
 
+import com.taskManager.entity.Task;
 import com.taskManager.entity.User;
 
 import java.util.List;
@@ -14,5 +15,11 @@ public interface UserService {
 	void delete(int id);
 
 	void update(User user);
+
+	void addTaskToUser(User user, Task task);
+
+//	void addGenreToBook(Book book, Genre genre);
+
+//	User findUserByTask(int id);
 
 }

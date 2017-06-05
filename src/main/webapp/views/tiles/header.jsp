@@ -22,7 +22,6 @@
                             <button>logout</button>
                         </form:form>
                     </sec:authorize></li>
-
                 </ul>
             </div>
         </div>

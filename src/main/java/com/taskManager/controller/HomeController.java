@@ -20,7 +20,8 @@ public class HomeController {
 
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(Task.class, new TaskEditor(taskService));
+//		binder.registerCustomEditor(Task.class, new TaskEditor(taskService));
+		binder.registerCustomEditor(Task.class, new TaskEditor());
 	}
 
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)

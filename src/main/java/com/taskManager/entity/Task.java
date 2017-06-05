@@ -21,9 +21,10 @@ public class Task extends AbstractEntity {
     private String descriptionOfTask;
 
     @OneToMany(mappedBy = "task",fetch = FetchType.LAZY)
-    private List<User> users = new ArrayList<>();
-
-
+    private List<User> users;
+    /*
+    * private List<User> users = new ArrayList<>();
+     */
 
 
     public LocalDateTime getLocalDateTime() {
@@ -32,6 +33,16 @@ public class Task extends AbstractEntity {
 
     public void setLocalDateTime(LocalDateTime localDateTime) {
         this.localDateTime = localDateTime;
+    }
+
+    public Task() {
+
+    }
+
+    public Task(LocalDateTime localDateTime, String titleOfTask, String descriptionOfTask) {
+        this.localDateTime = localDateTime;
+        this.titleOfTask = titleOfTask;
+        this.descriptionOfTask = descriptionOfTask;
     }
 
     public String getTitleOfTask() {

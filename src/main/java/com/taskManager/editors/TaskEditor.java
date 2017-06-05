@@ -7,12 +7,12 @@ import java.beans.PropertyEditorSupport;
 
 public class TaskEditor extends PropertyEditorSupport {
 
-    private final TaskService taskService;
-
-
-    public TaskEditor(TaskService taskService) {
-        this.taskService = taskService;
-    }
+//    private final TaskService taskService;
+//
+//
+//    public TaskEditor(TaskService taskService) {
+//        this.taskService = taskService;
+//    }
 
     @Override
     public void setAsText(String text) throws IllegalArgumentException {

@@ -23,7 +23,7 @@ public class TaskController {
         model.addAttribute("tasks", taskService.findAll());
         model.addAttribute("users", userService.findAll());
         model.addAttribute("task", new Task());
-        return "views-admin-listOfTasks";
+        return "admin/listOfTasks";
     }
 
     @PostMapping("/saveTask")
@@ -52,7 +52,7 @@ public class TaskController {
     @GetMapping("/updateTask/{id}")
     public String getTask(@PathVariable int id, Model model) {
         model.addAttribute("taskAttribute", taskService.findOne(id));
-        return "views-admin-updateTask";
+        return "admin/updateTask";
     }
 
     @PostMapping("/updateTask/{id}")
@@ -60,6 +60,6 @@ public class TaskController {
         task.setId(id);
         taskService.update(task);
         model.addAttribute("tasks", taskService.findAll());
-        return "views-admin-listOfTasks";
+        return "admin/listOfTasks";
     }
 }

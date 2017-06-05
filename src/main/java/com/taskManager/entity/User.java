@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "task")
+//@ToString(exclude = "task")
 @Builder
 public class User extends AbstractEntity implements UserDetails {
 //
@@ -30,16 +30,18 @@ public class User extends AbstractEntity implements UserDetails {
 
     @Enumerated
     private Role role = Role.ROLE_USER;
-    @ManyToOne(fetch = FetchType.LAZY)
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Task task;
 
 
-    public User(String name, String email, String password) {
-        super();
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
+//    public User(String name, String email, String password) {
+//        super();
+//        this.name = name;
+//        this.email = email;
+//        this.password = password;
+//    }
 
 
     public Collection<? extends GrantedAuthority> getAuthorities() {

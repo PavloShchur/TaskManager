@@ -1,6 +1,7 @@
 package com.taskManager.service.impl;
 
 import com.taskManager.dao.UserDao;
+import com.taskManager.entity.Task;
 import com.taskManager.entity.User;
 import com.taskManager.service.UserService;
 import com.taskManager.validator.Validator;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service("userDetailsService")
 public class UserServiceImpl implements UserService, UserDetailsService {
 
@@ -47,6 +49,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userDao.save(user);
     }
 
+//    @Override
+//    public User findUserByTask(int id) {
+//        return userDao.findUserByTask(id);
+//    }
+
+    @Override
+    public void addTaskToUser(User user, Task task) {
+        user.setTask(task);
+        userDao.save(user);
+
+//        book.setGenre(genre);
+//        bookDao.save(book);
+    }
 
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
         return userDao.findByName(name);
