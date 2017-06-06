@@ -2,6 +2,7 @@ package com.taskManager.service.impl;
 
 import com.taskManager.dao.TaskDao;
 import com.taskManager.entity.Task;
+import com.taskManager.entity.User;
 import com.taskManager.service.TaskService;
 import com.taskManager.validator.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,11 @@ public class TaskServiceImpl implements TaskService {
 
     @Autowired
     private TaskDao taskDao;
+
+    @Override
+    public Task findTaskWithUser(int id) {
+         return taskDao.findTaskWithUser(id);
+    }
 
     @Autowired
     @Qualifier("taskValidator")

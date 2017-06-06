@@ -41,8 +41,6 @@
     <button type="button" class="btn btn-primary">Primary</button>
 </div>
 
-</body>
-</html>
 
     <div class="container-fluid">
         <div class="row">

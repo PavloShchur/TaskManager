@@ -9,9 +9,6 @@ public interface UserDao extends JpaRepository<User, Integer> {
 
 	User findByNameAndEmail(String name, String email);
 
-//	@Query("select u from User u left join fetch u.tasks where u.id=:id")
-//	User findUserByTask(int id);
-
 	User findByName(String name);
 
 }

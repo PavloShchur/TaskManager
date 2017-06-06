@@ -4,12 +4,18 @@ import com.taskManager.entity.Task;
 import com.taskManager.service.TaskService;
 import com.taskManager.service.UserService;
 import com.taskManager.validator.userValidator.taskValidator.TaskValidationMessages;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.List;
+
 @Controller
+@Transactional
 public class TaskController {
 
     @Autowired
@@ -19,9 +25,12 @@ public class TaskController {
     private UserService userService;
 
     @GetMapping("/listOfTasks")
-    public String task(Model model) {
+    public String task(Model model, Principal principal) {
         model.addAttribute("tasks", taskService.findAll());
-        model.addAttribute("users", userService.findAll());
+        List<Task> tasks = taskService.findAll();
+        for(Task task: tasks) {
+            Hibernate.initialize(task.getUsers());
+        }
         model.addAttribute("task", new Task());
         return "admin/listOfTasks";
     }
@@ -39,8 +48,6 @@ public class TaskController {
         }
         return "redirect:/listOfTasks";
     }
-
-
 
     @GetMapping ("/deleteTask/{id}")
     public String deleteTask(@PathVariable int id) {

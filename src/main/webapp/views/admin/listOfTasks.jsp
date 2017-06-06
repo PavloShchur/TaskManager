@@ -1,14 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <div style="text-align: center; margin-top: 1%">
 
-    <form:form modelAttribute="task" method="post" action="saveTask">
+    <form:form modelAttribute="task" method="post" action="/saveTask">
         <form:input path="titleOfTask" placeholder="title of task"/>
         <form:input path="descriptionOfTask" placeholder="description of task"/>
-        <input type="submit" name="saveTask" value="SAVE" />
-        <input type="reset" value="RESET">
+        <button>Save</button>
+        <%--<input type="submit" name="saveTask" value="SAVE" />--%>
+        <%--<input type="reset" value="RESET">--%>
     </form:form>
 </div>
 
@@ -24,22 +25,23 @@
                 <th>Update</th>
             </tr>
             </thead>
-            <c:forEach var="task" items="${tasks}">
-                <tbody>
-                <tr>
-                    <c:forEach var="user" items="${users}">
-                        <td>${user.name}</td>
+            <tbody>
+            <tr>
+                <c:forEach var="task" items="${tasks}">
+                <td>
+                    <c:forEach var="user" items="${task.users}">
+                        <a href="/registration">${user.name}</a>
                     </c:forEach>
+
+                </td>
                     <%--<td>${task.user.name}</td>--%>
-                    <td>${task.titleOfTask}</td>
-                    <td>${task.descriptionOfTask}</td>
-                    <td><a href="/deleteTask/${task.id}">Delete</a></td>
-                    <td><a href="/updateTask/${task.id}" target="_blank">Update</a></td>
-                    <br>
-                </tr>
-                </tbody>
-            </c:forEach>
-        </table>
+                <td>${task.titleOfTask}</td>
+                <td>${task.descriptionOfTask}</td>
+                <td><a href="/deleteTask/${task.id}">Delete</a></td>
+                <td><a href="/updateTask/${task.id}" target="_blank">Update</a></td>
+            </tr>
+            </tbody>
+            </c:forEach> </table>
     </ol>
 </table>
 <link href="/css/bootstrap.css" rel="stylesheet">
