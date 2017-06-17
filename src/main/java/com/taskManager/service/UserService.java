@@ -18,6 +18,8 @@ public interface UserService {
 
 	void addTaskToUser(User user, Task task);
 
+    User findByUuid(String uuid);
+
 //	void addGenreToBook(Book book, Genre genre);
 
 //	User findUserByTask(int id);

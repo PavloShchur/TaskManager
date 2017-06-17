@@ -16,13 +16,7 @@
 	</form:form>
 </sec:authorize>
 
-<sec:authorize access="!isAuthenticated()">
-	<br>
-	<a href="loginpage">login</a>
-	<br>
-	<a href="registration">registration</a>
-	<br>
-</sec:authorize>
+
 
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -37,13 +31,5 @@
 
 <br>
 <br>
-<c:forEach var="task" items="${tasks}">
-		${task.localDateTime}
-		${task.titleOfTask}
-		${task.descriptionOfTask}
-			<sec:authorize access="hasAnyRole('ROLE_USER')">
-				<a href="buyBook/${task.id}">buy</a>
-			</sec:authorize>
-	<br>
-</c:forEach>
+
 <%@include file="../tiles/footer.jsp"%>

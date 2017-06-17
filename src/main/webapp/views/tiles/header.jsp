@@ -14,10 +14,9 @@
             </div>
             <div class="collapse navbar-collapse" id="responsive-menu">
                 <ul class="nav navbar-nav">
-                    <li><a href="/signup" target="_blank">Sign Up</a></li>
                     <li><a href="/registration" target="_blank">Registration</a></li>
                     <li><a href="/listOfTasks" target="_blank">Tasks</a></li>
-                    <li><a class="logout" href="/logout"><i class="icon-signout"></i>Logout</a></li>                    <li><sec:authorize access="isAuthenticated()">
+                    <li><sec:authorize access="isAuthenticated()">
                         <form:form action="logout" method="post">
                             <button>logout</button>
                         </form:form>

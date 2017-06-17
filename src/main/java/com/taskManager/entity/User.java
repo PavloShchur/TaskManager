@@ -1,23 +1,25 @@
 package com.taskManager.entity;
 
-import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name = "User")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+//@Getter
+//@Setter
+//@NoArgsConstructor
+//@AllArgsConstructor
 //@ToString(exclude = "task")
-@Builder
+//@Builder
 public class User extends AbstractEntity implements UserDetails {
 //
 //    {
@@ -28,6 +30,9 @@ public class User extends AbstractEntity implements UserDetails {
     private String email;
     private String password;
 
+    private boolean enable;
+    private String uuid;
+
     @Enumerated
     private Role role = Role.ROLE_USER;
 
@@ -35,19 +40,37 @@ public class User extends AbstractEntity implements UserDetails {
     @ManyToOne
     private Task task;
 
+    public User() {
+    }
 
-//    public User(String name, String email, String password) {
-//        super();
-//        this.name = name;
-//        this.email = email;
-//        this.password = password;
-//    }
+    public User(String name, String email, String password) {
+        super();
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
         authorities.add(new SimpleGrantedAuthority(role.name()));
         return authorities;
+    }
+
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getName() {

@@ -1,26 +1,16 @@
 package com.taskManager.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jdk.nashorn.internal.objects.annotations.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-/**
- * Created by User on 02.06.2017.
- */
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
+
 @Entity
 public class Task extends AbstractEntity {
 
@@ -30,8 +20,17 @@ public class Task extends AbstractEntity {
 
     private String descriptionOfTask;
 
-    @Getter
-    @Setter
+    public Task() {
+    }
+
+    public Task(LocalDateTime localDateTime, String titleOfTask, String descriptionOfTask) {
+        this.localDateTime = localDateTime;
+        this.titleOfTask = titleOfTask;
+        this.descriptionOfTask = descriptionOfTask;
+    }
+
+
+
     @OneToMany(mappedBy = "task",fetch = FetchType.LAZY)
     private Set<User> users = new HashSet<>();
     /*
@@ -56,11 +55,9 @@ public class Task extends AbstractEntity {
 
 
 
-    public Task(LocalDateTime localDateTime, String titleOfTask, String descriptionOfTask) {
-        this.localDateTime = localDateTime;
-        this.titleOfTask = titleOfTask;
-        this.descriptionOfTask = descriptionOfTask;
-    }
+
+
+
 
     public String getTitleOfTask() {
         return titleOfTask;

@@ -3,17 +3,22 @@ package com.taskManager.controller;
 import com.taskManager.editors.TaskEditor;
 import com.taskManager.entity.Task;
 import com.taskManager.entity.User;
+import com.taskManager.service.MailSenderService;
 import com.taskManager.service.TaskService;
 import com.taskManager.service.UserService;
 import com.taskManager.validator.userValidator.UserValidationMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @Controller
+@Transactional
 public class UserController {
 
 	@Autowired
@@ -21,6 +26,10 @@ public class UserController {
 
 	@Autowired
 	private TaskService taskService;
+
+
+    @Autowired
+	private MailSenderService mailSenderService;
 
 	@InitBinder
 	public void init(WebDataBinder binder){
@@ -38,7 +47,9 @@ public class UserController {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	@PostMapping("/saveUser")
-	public String user(@ModelAttribute User user, Model model) {
+	public String user(@ModelAttribute User user, Model model) throws Exception {
+		String uuid = UUID.randomUUID().toString();
+		user.setUuid(uuid);
 		try {
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			userService.save(user);
@@ -49,8 +60,23 @@ public class UserController {
 			}
 			return "user/registration";
 		}
+		String theme = "Thank You";
+		String mailBody = "gl & hf  http://localhost:8080/confirm/" + uuid;
+
+		mailSenderService.sendMail(theme, mailBody, user.getEmail());
 		return "redirect:/registration";
 	}
+
+	@GetMapping("/confirm/{uuid}")
+	public String confirm(@PathVariable String uuid)
+	{
+		User user = userService.findByUuid(uuid);
+		user.setEnable(true);
+
+		userService.update(user);
+		return "redirect:/";
+	}
+
 
 	@GetMapping("/signup")
 	public String signup(Model model) {

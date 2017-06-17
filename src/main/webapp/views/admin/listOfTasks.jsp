@@ -4,6 +4,8 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <div style="text-align: center; margin-top: 1%">
 
+    <%@include file="/views/tiles/header.jsp" %>
+
     <form:form modelAttribute="task" method="post" action="/saveTask">
         <form:input path="titleOfTask" placeholder="title of task"/>
         <form:input path="descriptionOfTask" placeholder="description of task"/>
