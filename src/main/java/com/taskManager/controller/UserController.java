@@ -46,6 +46,7 @@ public class UserController {
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
+
 	@PostMapping("/saveUser")
 	public String user(@ModelAttribute User user, Model model) throws Exception {
 		String uuid = UUID.randomUUID().toString();
@@ -78,10 +79,10 @@ public class UserController {
 	}
 
 
-	@GetMapping("/signup")
+	@GetMapping("/signUp")
 	public String signup(Model model) {
 		model.addAttribute("users", userService.findAll());
-		return "signup";
+		return "views-admin-listOfUsers";
 	}
 
 	@GetMapping("/deleteUser/{id}")

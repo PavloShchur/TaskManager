@@ -40,6 +40,7 @@
                     <td>${user.email}</td>
                     <td><a href="/deleteUser/${user.id}">Delete</a></td>
                     <td><a href="/updateUser/${user.id}" target="_blank">Update</a></td>
+                    <td><a href="/addTaskToUser/${user.id}" target="_blank">Add Task</a></td>
                     <br>
                 </tr>
                 </tbody>

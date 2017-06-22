@@ -1,7 +1,5 @@
 package com.taskManager.entity;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -29,13 +27,25 @@ public class Task extends AbstractEntity {
         this.descriptionOfTask = descriptionOfTask;
     }
 
+    public Task(LocalDateTime localDateTime, String titleOfTask, String descriptionOfTask, Set<User> users) {
+        this.localDateTime = localDateTime;
+        this.titleOfTask = titleOfTask;
+        this.descriptionOfTask = descriptionOfTask;
+        this.users = users;
+    }
 
+    @Override
+    public String toString() {
+        return "Task{" +
+                "localDateTime=" + localDateTime +
+                ", titleOfTask='" + titleOfTask + '\'' +
+                ", descriptionOfTask='" + descriptionOfTask + '\'' +
+                ", users=" + users +
+                '}';
+    }
 
     @OneToMany(mappedBy = "task",fetch = FetchType.LAZY)
     private Set<User> users = new HashSet<>();
-    /*
-    * private List<User> users = new ArrayList<>();
-     */
 
     public Set<User> getUsers() {
         return users;

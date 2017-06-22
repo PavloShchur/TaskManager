@@ -1,6 +1,8 @@
 package com.taskManager.controller;
 
 import com.taskManager.entity.Task;
+import com.taskManager.entity.User;
+import com.taskManager.service.MailSenderService;
 import com.taskManager.service.TaskService;
 import com.taskManager.service.UserService;
 import com.taskManager.validator.userValidator.taskValidator.TaskValidationMessages;
@@ -9,7 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.util.List;
@@ -24,11 +29,16 @@ public class TaskController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MailSenderService mailSenderService;
+
+    private Task tasks = new Task();
+
     @GetMapping("/listOfTasks")
     public String task(Model model, Principal principal) {
         model.addAttribute("tasks", taskService.findAll());
         List<Task> tasks = taskService.findAll();
-        for(Task task: tasks) {
+        for (Task task : tasks) {
             Hibernate.initialize(task.getUsers());
         }
         model.addAttribute("task", new Task());
@@ -41,7 +51,7 @@ public class TaskController {
             taskService.save(task);
         } catch (Exception e) {
             if (e.getMessage().equals(TaskValidationMessages.EMPTY_TITLE_FIELD) ||
-                    e.getMessage().equals(TaskValidationMessages.TITLE_ALREADY_EXISTS)){
+                    e.getMessage().equals(TaskValidationMessages.TITLE_ALREADY_EXISTS)) {
                 model.addAttribute("TaskTitleException", e.getMessage());
             }
             return "views-admin-listOfTasks";
@@ -49,7 +59,7 @@ public class TaskController {
         return "redirect:/listOfTasks";
     }
 
-    @GetMapping ("/deleteTask/{id}")
+    @GetMapping("/deleteTask/{id}")
     public String deleteTask(@PathVariable int id) {
         taskService.delete(id);
         return "redirect:/listOfTasks";
@@ -68,4 +78,54 @@ public class TaskController {
         model.addAttribute("tasks", taskService.findAll());
         return "admin/listOfTasks";
     }
+
+    @GetMapping("/addTaskToUser/{id}")
+    public String addTaskToUser(@PathVariable int id, Model model) {
+        List<Task> tasks = taskService.findAll();
+        for (Task task : tasks) {
+            Hibernate.initialize(task.getUsers());
+        }
+        model.addAttribute("userAttribute", userService.findOne(id));
+        model.addAttribute("tasks", taskService.findAll());
+        return "user/addTaskToUser";
+    }
+
+    @PostMapping("/addTaskToUser/{id}")
+    public String userConfirmTask(@PathVariable int id) {
+        User user = userService.findOne(id);
+        user.setId(id);
+        userService.update(user);
+        tasks = user.getTask();
+        System.out.println("user.getTask(): " + user.getTask());
+        System.out.println("TASKS: " + tasks);
+        String theme = "Thank You";
+        String mailBody = "gl & hf  http://localhost:8080/submitTask/" + user.getId();
+        mailSenderService.sendMail(theme, mailBody,
+                user.getEmail());
+        System.out.println(mailBody);
+
+        return "redirect:/registration";
+    }
+
+    @GetMapping("/submitTask/{id}")
+    public String submitTask(@PathVariable int id, Model model){
+        model.addAttribute("userConfirmTask", tasks);
+        model.addAttribute("userAttribute", userService.findOne(id));
+        return "user/submitTask";
+    }
+
+    @PostMapping("/submitTask/{id}")
+    public String submitTaskAfter(@PathVariable int id){
+        System.out.println("FIX");
+        User user = userService.findOne(id);
+        user.setTask(tasks);
+        userService.update(user);
+        System.out.println("user.getTask(): " + user.getTask());
+
+        return "redirect:/registration";
+    }
+
+
+
+
 }
