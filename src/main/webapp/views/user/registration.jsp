@@ -35,7 +35,6 @@
                 <tr>
 
                     <td><a href="/listOfTasks" target="_blank">${user.task.titleOfTask}</a></td>
-
                     <td>${user.name}</td>
                     <td>${user.email}</td>
                     <td><a href="/deleteUser/${user.id}">Delete</a></td>

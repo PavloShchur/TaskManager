@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -82,18 +79,19 @@ public class TaskController {
     @GetMapping("/addTaskToUser/{id}")
     public String addTaskToUser(@PathVariable int id, Model model) {
         List<Task> tasks = taskService.findAll();
-        for (Task task : tasks) {
-            Hibernate.initialize(task.getUsers());
-        }
+        for (Task task : tasks) { Hibernate.initialize(task.getUsers()); }
         model.addAttribute("userAttribute", userService.findOne(id));
         model.addAttribute("tasks", taskService.findAll());
         return "user/addTaskToUser";
     }
 
     @PostMapping("/addTaskToUser/{id}")
-    public String userConfirmTask(@PathVariable int id) {
-        User user = userService.findOne(id);
+    public String userConfirmTask(@RequestParam String name, @RequestParam String email,
+                                  @RequestParam String password,  @RequestParam int taskID,
+                                  @PathVariable int id) {
+        User user = new User(name, email, password);
         user.setId(id);
+        user.setTask(taskService.findOne(taskID));
         userService.update(user);
         tasks = user.getTask();
         System.out.println("user.getTask(): " + user.getTask());
@@ -116,7 +114,6 @@ public class TaskController {
 
     @PostMapping("/submitTask/{id}")
     public String submitTaskAfter(@PathVariable int id){
-        System.out.println("FIX");
         User user = userService.findOne(id);
         user.setTask(tasks);
         userService.update(user);

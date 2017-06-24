@@ -96,6 +96,7 @@ public class UserController {
 	@RequestMapping(value = "/updateUser/{id}", method = RequestMethod.GET)
 	public String getUser(@PathVariable int id, Model model) {
 		model.addAttribute("userAttribute", userService.findOne(id));
+		model.addAttribute("tasks", taskService.findAll());
 		return "user/updateUser";
 	}
 
