@@ -3,10 +3,24 @@
 .header{
     background-color: #3e8f3e;
 }
+
 body {
-    background-color: #2b542c;
     margin: 0;
-    padding: 0;
     border: 0;
-    font-size: 14px
+    font-size: 14px;
+    position: relative;
+    padding: 0 0 6rem;
+    min-height: 100%;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+}
+.footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    text-align: center;
+    margin-top: 1000px;
+    background-color: black;
+    color: white;
 }

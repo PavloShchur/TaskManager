@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--<link href="/css/bootstrap.css" rel="stylesheet">--%>
 
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+
 <div class="navbar navbar-inverse navbar-static-top">
     <div class="container">
         <div class="navbar-header">
@@ -15,6 +18,7 @@
         <div class="collapse navbar-collapse" id="responsive-menu">
             <ul class="nav navbar-nav">
                 <li><a href="/registration" target="_blank">Registration</a></li>
+                <li><a href="/loginpage" target="_blank">Login</a></li>
 
                 <sec:authorize access="isAuthenticated()">
                     <li><a href="/listOfTasks" target="_blank">Tasks</a></li>
@@ -54,7 +58,5 @@
 
 <link href="/css/bootstrap.css" rel="stylesheet">
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>

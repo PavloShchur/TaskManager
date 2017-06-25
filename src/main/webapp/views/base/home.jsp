@@ -7,16 +7,7 @@
 	prefix="sec"%>
 <%@include file="/views/tiles/header.jsp"%>
 
-<sec:authentication property="name" />
-
-<sec:authorize access="isAuthenticated()">
-
-	<form:form action="logout" method="post">
-		<button>logout</button>
-	</form:form>
-</sec:authorize>
-
-
+<%--<sec:authentication property="name" />--%>
 
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -32,4 +23,4 @@
 <br>
 <br>
 
-<%@include file="../tiles/footer.jsp"%>
+<%@include file="/views/tiles/footer.jsp"%>

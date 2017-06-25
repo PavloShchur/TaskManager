@@ -3,9 +3,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="stylesheet" href="/styles/bootstrap-theme.css">
-    <link rel="stylesheet" href="/styles/bootstrap.css">
-    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/bootstrap-theme.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/bootstrap.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/main.css">
     <script src="${pageContext.request.contextPath}../../js/bootstrap.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

@@ -1,2 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<h1 style="text-align: center;background-color: grey">footer</h1>
+<link rel="stylesheet" href="/styles/main.css">
+
+<%--<div style="height: 100px; text-align: center;background-color: grey" class="footer"></div>--%>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted"></p>
+    </div>
+</footer>
