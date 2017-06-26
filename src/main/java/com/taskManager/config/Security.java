@@ -45,7 +45,7 @@ public class Security extends WebSecurityConfigurerAdapter{
         inMemoryUserDetailsManagerConfigurer()
                 .withUser("admin")
                 .password("admin")
-                .authorities("ADMIN")
+                .authorities("ROLE_ADMIN")
                 .and()
                 .configure(auth);
         auth.authenticationProvider(provider);

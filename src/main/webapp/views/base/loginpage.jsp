@@ -5,11 +5,6 @@
 
 <%@include file="/views/tiles/header.jsp" %>
 
-<%--<form:form action="/loginprocesing" method="post">--%>
-    <%--<input name="username" type="text" placeholder="login"/>--%>
-    <%--<input name="password" type="password" placeholder="password"/>--%>
-    <%--<button>login</button>--%>
-<%--</form:form>--%>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

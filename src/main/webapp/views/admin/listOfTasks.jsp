@@ -32,7 +32,7 @@
                 <c:forEach var="task" items="${tasks}">
                 <td>
                     <c:forEach var="user" items="${task.users}">
-                        <a href="/registration">${user.name}</a>
+                        <a href="/listOfUsers">${user.name}</a>
                     </c:forEach>
 
                 </td>

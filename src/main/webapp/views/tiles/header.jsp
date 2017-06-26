@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<link href="/css/bootstrap.css" rel="stylesheet">--%>
 
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
@@ -20,15 +19,21 @@
                 <li><a href="/registration" target="_blank">Registration</a></li>
                 <li><a href="/loginpage" target="_blank">Login</a></li>
 
-                <sec:authorize access="isAuthenticated()">
-                    <li><a href="/listOfTasks" target="_blank">Tasks</a></li>
-                </sec:authorize>
+                <%--<sec:authorize access="isAuthenticated()">--%>
+                    <%--<li><a href="/listOfTasks" target="_blank">Tasks</a></li>--%>
+                <%--</sec:authorize>--%>
 
                 <li><sec:authorize access="isAuthenticated()">
                     <form:form action="logout" method="post">
                         <button>logout</button>
                     </form:form>
                 </sec:authorize></li>
+
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <li><a href="/listOfUsers" target="_blank">Users</a></li>
+                    <li><a href="/listOfTasks" target="_blank">Tasks</a></li>
+                </sec:authorize>
+
             </ul>
         </div>
     </div>
@@ -40,7 +45,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 
 
 <div class="container-fluid">

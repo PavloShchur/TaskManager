@@ -38,6 +38,12 @@ public class UserController {
 
 	@GetMapping("/registration")
 	public String user(Model model) {
+		model.addAttribute("user", new User());
+		return "user/registration";
+	}
+
+	@GetMapping("/listOfUsers")
+	public String listOfUsers(Model model) {
 		model.addAttribute("users", userService.findAll());
 		model.addAttribute("tasks", taskService.findAll());
 		model.addAttribute("user", new User());
