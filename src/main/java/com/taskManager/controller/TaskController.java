@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -32,7 +31,7 @@ public class TaskController {
     private Task tasks = new Task();
 
     @GetMapping("/listOfTasks")
-    public String task(Model model, Principal principal) {
+    public String task(Model model) {
         model.addAttribute("tasks", taskService.findAll());
         List<Task> tasks = taskService.findAll();
         for (Task task : tasks) {
@@ -70,6 +69,10 @@ public class TaskController {
 
     @PostMapping("/updateTask/{id}")
     public String updateUser(@ModelAttribute("task") Task task, @PathVariable int id, Model model) {
+        List<Task> tasks = taskService.findAll();
+        for (Task task1 : tasks) {
+            Hibernate.initialize(task1.getUsers());
+        }
         task.setId(id);
         taskService.update(task);
         model.addAttribute("tasks", taskService.findAll());
@@ -121,8 +124,4 @@ public class TaskController {
 
         return "redirect:/registration";
     }
-
-
-
-
 }
