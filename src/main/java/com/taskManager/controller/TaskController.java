@@ -61,8 +61,9 @@ public class TaskController {
         return "redirect:/listOfTasks";
     }
 
-    @GetMapping("/updateTask/{id}")
-    public String getTask(@PathVariable int id, Model model) {
+    @GetMapping("/updateTask/{id}/{userId}")
+    public String getTask(@PathVariable int id, @PathVariable int userId, Model model) {
+        model.addAttribute("user", taskService.findTaskWithUser(userId));
         model.addAttribute("taskAttribute", taskService.findOne(id));
         return "admin/updateTask";
     }
@@ -76,13 +77,33 @@ public class TaskController {
         task.setId(id);
         taskService.update(task);
         model.addAttribute("tasks", taskService.findAll());
-        return "admin/listOfTasks";
+        return "redirect:/listOfTasks";
+    }
+
+    @GetMapping("/updateTaskWithoutUser/{id}")
+    public String getTaskWithoutUser(@PathVariable int id, Model model) {
+        model.addAttribute("taskAttribute", taskService.findOne(id));
+        return "admin/updateTaskWithoutUser";
+    }
+
+    @PostMapping("/updateTaskWithoutUser/{id}")
+    public String getTaskWithoutUser(@ModelAttribute("task") Task task, @PathVariable int id, Model model) {
+        List<Task> tasks = taskService.findAll();
+        for (Task task1 : tasks) {
+            Hibernate.initialize(task1.getUsers());
+        }
+        task.setId(id);
+        taskService.update(task);
+        model.addAttribute("tasks", taskService.findAll());
+        return "redirect:/listOfTasks";
     }
 
     @GetMapping("/addTaskToUser/{id}")
     public String addTaskToUser(@PathVariable int id, Model model) {
         List<Task> tasks = taskService.findAll();
-        for (Task task : tasks) { Hibernate.initialize(task.getUsers()); }
+        for (Task task : tasks) {
+            Hibernate.initialize(task.getUsers());
+        }
         model.addAttribute("userAttribute", userService.findOne(id));
         model.addAttribute("tasks", taskService.findAll());
         return "user/addTaskToUser";
@@ -90,7 +111,7 @@ public class TaskController {
 
     @PostMapping("/addTaskToUser/{id}")
     public String userConfirmTask(@RequestParam String name, @RequestParam String email,
-                                  @RequestParam String password,  @RequestParam int taskID,
+                                  @RequestParam String password, @RequestParam int taskID,
                                   @PathVariable int id) {
         User user = new User(name, email, password);
         user.setId(id);
@@ -109,14 +130,14 @@ public class TaskController {
     }
 
     @GetMapping("/submitTask/{id}")
-    public String submitTask(@PathVariable int id, Model model){
+    public String submitTask(@PathVariable int id, Model model) {
         model.addAttribute("userConfirmTask", tasks);
         model.addAttribute("userAttribute", userService.findOne(id));
         return "user/submitTask";
     }
 
     @PostMapping("/submitTask/{id}")
-    public String submitTaskAfter(@PathVariable int id){
+    public String submitTaskAfter(@PathVariable int id) {
         User user = userService.findOne(id);
         user.setTask(tasks);
         userService.update(user);

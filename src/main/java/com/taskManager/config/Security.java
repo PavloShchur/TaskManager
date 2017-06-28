@@ -64,5 +64,12 @@ public class Security extends WebSecurityConfigurerAdapter{
                 .loginProcessingUrl("/loginprocesing")
                 .and()
                 .csrf();
+//        http
+//                .authorizeRequests()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                .and()
+//                .httpBasic();
     }
 }

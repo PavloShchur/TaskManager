@@ -10,7 +10,7 @@ import java.util.Properties;
 @org.springframework.stereotype.Service
 public class MailServiceSenderImpl implements MailSenderService {
     private final String EMAIL_FROM = "koko1990rokoko@gmail.com";
-    private final String EMAIL_PASSWORD = "kokokokokoko";
+    private final String EMAIL_PASSWORD = "koko";
 
     @Override
     public void sendMail(String thema, String mailBody, String email) {

@@ -1,37 +1,30 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: User
-  Date: 02.06.2017
-  Time: 13:16
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
-<c:url var="saveUrl" value="/updateTask/${taskAttribute.id}" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<%@include file="/views/tiles/header.jsp" %>
+
+<c:url var="saveUrl" value="/updateTask/${taskAttribute.id}/${user.userId}" />
 <form:form modelAttribute="taskAttribute" method="POST" action="${saveUrl}">
-    <table>
-        <tr>
-            <td><form:label path="id">Id</form:label></td>
-            <td><form:input path="id" disabled="true"/></td>
-        </tr>
-
-        <tr>
-            <td><form:label path="localDateTime">Time</form:label></td>
-            <td><form:input path="localDateTime" disabled="true"/></td>
-        </tr>
-
-        <tr>
-            <td><form:label path="titleOfTask">Title</form:label></td>
-            <td><form:input path="titleOfTask"/></td>
-        </tr>
-
-        <tr>
-            <td><form:label path="descriptionOfTask">Description</form:label></td>
-            <td><form:input path="descriptionOfTask"/></td>
-        </tr>
-
-    </table>
-    <input type="submit" value="Save" />
+    <div class="container">
+    <div class="form-group">
+        <label for="localDateTime">Time:</label>
+        <form:input class="form-control"  path="localDateTime" type="text"/>
+    </div>
+    <div class="form-group">
+        <label for="titleOfTask">Title:</label>
+        <form:input class="form-control" path="titleOfTask" type="text" placeholder="titleOfTask"/>
+    </div>
+    <div class="form-group">
+        <label for="descriptionOfTask">Description:</label>
+        <form:input class="form-control" path="descriptionOfTask" type="text" placeholder="descriptionOfTask"/>
+    </div>
+    <button type="submit" class="btn btn-default">Save changes</button>
+    </div>
 </form:form>

@@ -2,7 +2,6 @@ package com.taskManager.service.impl;
 
 import com.taskManager.dao.TaskDao;
 import com.taskManager.entity.Task;
-import com.taskManager.entity.User;
 import com.taskManager.service.TaskService;
 import com.taskManager.validator.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -32,6 +32,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void save(Task task) throws Exception {
         validator.validate(task);
+        task.setLocalDateTime(LocalDateTime.now());
         taskDao.save(task);
     }
 

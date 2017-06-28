@@ -23,16 +23,18 @@
                     <%--<li><a href="/listOfTasks" target="_blank">Tasks</a></li>--%>
                 <%--</sec:authorize>--%>
 
-                <li><sec:authorize access="isAuthenticated()">
-                    <form:form action="logout" method="post">
-                        <button>logout</button>
-                    </form:form>
-                </sec:authorize></li>
 
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <li><a href="/listOfUsers" target="_blank">Users</a></li>
                     <li><a href="/listOfTasks" target="_blank">Tasks</a></li>
                 </sec:authorize>
+
+                <li"><sec:authorize access="isAuthenticated()">
+                    <form:form action="logout" method="post">
+                        <button class="btn btn-default">logout</button>
+                    </form:form>
+                </sec:authorize>
+                </li>
 
             </ul>
         </div>

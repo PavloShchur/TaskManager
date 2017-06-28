@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class HomeController {
@@ -23,13 +20,13 @@ public class HomeController {
 		binder.registerCustomEditor(Task.class, new TaskEditor());
 	}
 
-	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
+	@GetMapping({ "/", "/home" })
 	public String home(Model model) {
 		model.addAttribute("tasks", taskService.findAll());
 		return "base/home";
 	}
 
-	@RequestMapping(value = "/home", method = RequestMethod.POST)
+	@PostMapping("/home")
 	public String anton() {
 		return "redirect:/";
 	}

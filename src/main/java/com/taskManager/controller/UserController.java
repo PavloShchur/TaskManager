@@ -65,7 +65,7 @@ public class UserController {
 					e.getMessage().equals(UserValidationMessages.USERNAME_ALREADY_EXISTS)){
 				model.addAttribute("UserNameException", e.getMessage());
 			}
-			return "user/registration";
+			return "user/home";
 		}
 		String theme = "Thank You";
 		String mailBody = "gl & hf  http://localhost:8080/confirm/" + uuid;
